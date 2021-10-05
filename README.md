@@ -1,8 +1,10 @@
 # Steps to install rancher k8s
 #### Recommended to go with 3 nodes wherein 1master with 2workers.
 
-Step 1: Update /etc/hosts file with number of nodes taken with their IP address
+Step 1: Change the host name and update /etc/hosts file with number of nodes taken with their IP address
 ```
+# sudo hostnamectl set-hostname your-new-hostname
+
 Example:
 167.254.204.77  master
 167.254.204.59  node1
