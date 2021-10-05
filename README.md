@@ -1,4 +1,6 @@
 # Steps to install rancher k8s
+#### Recommended to go with 3 nodes wherein 1master with 2workers.
+
 Step 1: Update /etc/hosts file with number of nodes taken with their IP address
 ```
 Example:
