@@ -4,9 +4,15 @@ nodes:
     role:
       - controlplane
       - etcd
-      - worker
     docker_socket: /var/run/docker.sock
     hostname_override: rke-master
+
+  - address: 167.254.204.67
+    user: centos
+    role:
+      - worker
+    docker_socket: /var/run/docker.sock
+    hostname_override: rke-worker1
 
 #Name of the K8s Cluster
 cluster_name: rancher-cluster
@@ -55,4 +61,3 @@ authorization:
 # Specify monitoring provider (metrics-server)
 monitoring:
   provider: metrics-serve
-
