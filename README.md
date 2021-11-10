@@ -21,8 +21,6 @@ Step 3: Install Docker Runtime Container.
     https://download.docker.com/linux/centos/docker-ce.repo
 # sudo yum install docker-ce docker-ce-cli containerd.io
 # sudo systemctl start docker
-
-# sudo groupadd docker
 # sudo usermod -aG docker centos
 ```
 
