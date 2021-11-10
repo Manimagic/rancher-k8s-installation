@@ -1,40 +1,34 @@
 # Steps to install rancher k8s
-#### Recommended to go with 3 nodes wherein 1master with 2workers.
 
-Step 1: Change the host name and update /etc/hosts file with number of nodes taken with their IP address
-```
-# sudo hostnamectl set-hostname your-new-hostname
-
-Example:
-167.254.204.77  master
-167.254.204.59  node1
-167.254.204.52  node2
-```
-
-Step 2: Disable all swap.
+Step 1: Disable all swap.
 ```
 # swapoff -a 
 ```
 
-Step 3: Install Docker Runtime Container.
+Step 2: Install Docker Runtime Container.
 
 ```
-Refer URL - https://docs.docker.com/engine/install/centos/
+# sudo yum install -y yum-utils
+# sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+# sudo yum install docker-ce docker-ce-cli containerd.io
+# sudo systemctl start docker
+
 # sudo groupadd docker
 # sudo usermod -aG docker centos
 ```
 
-Step 4: Generate a ssh-keygen  in master and copy it on all nodes.
+Step 3: Generate a ssh-keygen in master and copy it on all nodes.
 ```
 # ssh-keygen
 # ssh-agent bash -c "ssh-add key.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@master" 
 # ssh-agent bash -c "ssh-add gcp-pvt.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@node1"
-# ssh-agent bash -c "ssh-add gcp-pvt.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@node2"
 ```
 
-Step 5:  Download rancher linux lib file from below URL and move lib file /usr/local/bin.
+Step 4:  Download rancher linux lib file from below URL and move lib file /usr/local/bin.
 ```
-# wget https://github.com/rancher/rke/releases/download/v1.1.16/rke_linux-amd64
+# wget https://github.com/rancher/rke/releases/download/v1.3.2/rke_linux-amd64
 # sudo mv rke_linux-amd64 /usr/local/bin/
 # cd /usr/local/bin 
 # mv rke_linux-amd64 rke
@@ -42,17 +36,17 @@ Step 5:  Download rancher linux lib file from below URL and move lib file /usr/l
 # rke --version
 ```
 
-Step 6: Configure rancher file with node details with below cmd.
+Step 5: Configure rancher cluster.yml file with node details with below cmd.
 ```
 # rke config
 ```
 
-Step 7: Start rancher installation with below cmd.
+Step 6: Start rancher installation with below cmd.
 ```
 # rke up
 ```
 
-Step 8: Download kubectl and move to .kube/config and permission change.
+Step 7: Download kubectl and move to .kube/config and permission change.
 ```
 # curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 # sudo cp kubectl /usr/local/bin/
@@ -61,12 +55,3 @@ Step 8: Download kubectl and move to .kube/config and permission change.
 # sudo chmod 0777 /usr/local/bin/kubectl
 # kubectl get pod -A
 ```
-
-
-
-
-
-
-
-
-
