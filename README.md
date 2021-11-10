@@ -1,11 +1,18 @@
 # Steps to install rancher k8s
 
-Step 1: Disable all swap.
+Step 1: Generate a ssh-keygen in master and copy it on all nodes.
+```
+# ssh-keygen
+# ssh-agent bash -c "ssh-add key.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@master" 
+# ssh-agent bash -c "ssh-add gcp-pvt.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@node1"
+```
+
+Step 2: Disable all swap.
 ```
 # swapoff -a 
 ```
 
-Step 2: Install Docker Runtime Container.
+Step 3: Install Docker Runtime Container.
 
 ```
 # sudo yum install -y yum-utils
@@ -17,13 +24,6 @@ Step 2: Install Docker Runtime Container.
 
 # sudo groupadd docker
 # sudo usermod -aG docker centos
-```
-
-Step 3: Generate a ssh-keygen in master and copy it on all nodes.
-```
-# ssh-keygen
-# ssh-agent bash -c "ssh-add key.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@master" 
-# ssh-agent bash -c "ssh-add gcp-pvt.pem ; ssh-copy-id -i ~/.ssh/id_rsa.pub centos@node1"
 ```
 
 Step 4:  Download rancher linux lib file from below URL and move lib file /usr/local/bin.
